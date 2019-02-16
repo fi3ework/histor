@@ -1,0 +1,42 @@
+{
+  "name": "histor",
+  "version": "0.0.1",
+  "description": "object with history",
+  "main": "lib/index.js",
+  "files": [
+    "lib/"
+  ],
+  "keywords": [
+    "object"
+  ],
+  "types": "lib/index.d.ts",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "test": "",
+    "build": "tsc"
+  },
+  "author": "fi3ework",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fi3ework/useProState"
+  },
+  "bugs": {
+    "url": "https://github.com/fi3ework/useProState"
+  },
+  "homepage": "https://github.com/fi3ework/useProState",
+  "devDependencies": {
+    "cross-env": "5.0.5",
+    "typescript": "^3.2.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "git-cz"
+    }
+  },
+  "dependencies": {
+    "@types/clone": "^0.1.30",
+    "clone": "^2.1.2",
+    "immer": "^2.0.0"
+  }
+}
