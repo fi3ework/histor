@@ -1,24 +1,17 @@
-import createTraps from './traps'
-import { $PROP, $PARENT, $ROOT, $ACTIONS, IOnChange } from './types'
-
-// const stampTag = (tagName: string) => {
-//   const currTag = Symbol('symbol for current tag')
-// }
+import makeRootProxy from './traps'
+import { IOnChange, IDiff } from './types'
 
 function histor<T>(target: T, onChange: IOnChange): T {
   if (typeof target !== 'object') {
     throw Error('only accept an object')
   }
 
-  const proxy = new Proxy<any>(target, createTraps(onChange))
-
-  // root proxy element
-  proxy[$PARENT] = null
-  proxy[$PROP] = null
-  proxy[$ROOT] = true
-  proxy[$ACTIONS] = []
+  const propMap = new WeakMap()
+  const traps = makeRootProxy(onChange, propMap)
+  const proxy = new Proxy<any>(target, traps())
 
   return proxy
 }
 
 export default histor
+export { IOnChange, IDiff }

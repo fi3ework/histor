@@ -1,65 +1,67 @@
-# useProState
+# histor
 
-Use `useState` in a more OOP way.
+histor is a enhancer to watch the deep change of an object and tell the detail of the change.
 
 ## Install
 
 ```bash
-$ yarn add use-pro-state
+$ yarn add histor
 ```
 
 or
 
 ```bash
-$ npm i use-pro-state
+$ npm i histor
 ```
 
 ## Usage
 
-### `useProState(obj)`
+### histor(object, onChange)
 
-`useProState` can accept an plain object or array, and return a delegated object or array. Use it as what is passed into `useProState` (it's a ES2015 `Proxy` object).
+Accept an object and a `onChange` callback function. The callback function will be called if any part of the object is changed.
 
-### `obj.$()`
+The `onChange` callback will receive a change detail whose type is:
 
-the delegated object has a function called `$`, it will directly invoke the set function from `useState`. So use it in the way you use the set function from `useState`
-
-## Example
-
-```jsx
-import useProState from 'use-pro-state'
-
-const App = () => {
-  const david = {
-    name: 'David',
-    pets: {
-      dogs: ['Leo', 'Lucky'],
-      cats: []
-    }
-  }
-  const davidPro = useProState(david)
-
-  return (
-    <div>
-      <p>{`${davidPro.name} lives with ${davidPro.pets.dogs.length + davidPro.pets.cats.length} pets`}</p>
-      <button
-        onClick={() => {
-          davidPro.pets.cats.push('Lisa')
-          davidPro.$()
-        }}
-      >
-        Add a cat
-      </button>
-    </div>
-  )
+```ts
+interface IDiff {
+  path: (string | number)[] // the path chain of the changed key
+  from: any // previous value before change of the prop
+  to: any // current value after change of the prop
 }
 ```
 
-## TODO
+Example:
 
-- [ ] add test
-- [ ] deal with edge case
-- [ ] Support ES6 `Set` and `Map`
+```ts
+import histor from 'histor'
+
+const person = {
+  name: 'wee',
+  skills: ['eat', 'sleep'],
+  pets: {
+    cat: {
+      name: 'c1'
+    },
+    dog: 'd1'
+  }
+}
+
+const p = histor(person, diff => {
+  console.log(`$${diff.path.map(p => `[${p}]`).join('')}: ${diff.from} ==> ${diff.to}`)
+})
+
+person.pets.cat.name = 'c2'
+// it will log:
+// `$[pets][cat][name]: c1 ==> c2`
+```
+
+## ⚠️ CAVEAT
+
+- The change diff will just keep a reference to the changed value. So if the new value or the new value has been changed deeply afterward. The previous diff will be changed at the same time. So it's better to serialize the diff to make it immutable.
+
+## Thanks
+
+Inspired by [on-change](https://github.com/sindresorhus/on-change).
 
 ## License
 

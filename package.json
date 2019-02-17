@@ -1,6 +1,6 @@
 {
   "name": "histor",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "object with history",
   "main": "lib/index.js",
   "files": [
@@ -12,21 +12,24 @@
   "types": "lib/index.d.ts",
   "typings": "lib/index.d.ts",
   "scripts": {
-    "test": "",
+    "test": "jest",
     "build": "tsc"
   },
   "author": "fi3ework",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fi3ework/useProState"
+    "url": "https://github.com/fi3ework/histor"
   },
   "bugs": {
-    "url": "https://github.com/fi3ework/useProState"
+    "url": "https://github.com/fi3ework/histor"
   },
-  "homepage": "https://github.com/fi3ework/useProState",
+  "homepage": "https://github.com/fi3ework/histor",
   "devDependencies": {
+    "@types/jest": "^24.0.5",
     "cross-env": "5.0.5",
+    "jest": "^24.1.0",
+    "ts-jest": "^23.10.5",
     "typescript": "^3.2.2"
   },
   "config": {
@@ -35,8 +38,6 @@
     }
   },
   "dependencies": {
-    "@types/clone": "^0.1.30",
-    "clone": "^2.1.2",
-    "immer": "^2.0.0"
+    "@types/clone": "^0.1.30"
   }
 }
